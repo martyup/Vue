@@ -2,27 +2,84 @@
 <html>
 
 <head>
-  <title>My second Vue app</title>
+  <title>My third Vue app</title>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 
 <body>
-  <!--en melding som blir styrt av javascript-->
-  <div id="app">
-    {{ message }}
-  </div>
+  <ul id="example-1">
+    <li v-for="item in items">
+      {{ item.message }}
+    </li>
+  </ul>
+
+  <ul id="example-2">
+    <li v-for="(item, index) in items">
+      {{parentMessage}} - {{index}} - {{item.message}}
+    </li>
+  </ul>
+
+    <!--!ul id="v-for-object" class="demo">
+      <li v-for="value in object">
+        {{value}}
+      </li>
+    </ul-->
+
+      <ul id="v-for-object" class="demo">
+        <li v-for="(value, key, index) in object">
+        {{ index }}. {{ key }}: {{ value }}
+        </li>
+      </ul>
+<ul id=ok>
+      <li v-for="n in evenNumbers">{{n}}</li>
+</ul>
 
   <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'Hello Vue!'
-      }
-    })
+  var example1 = new Vue({
+    el: '#example-1',
+    data: {
+      items: [
+        { message: 'Foo' },
+        { message: 'Bar' }
+      ]
+    }
+  })
 
+  var example2 = new Vue({
+    el: '#example-2',
+    data: {
+      parentMessage: 'Parent',
+      items: [
+        {message: 'Foo'},
+        {message: 'Bar'}
+      ]
+    }
+  })
+  new Vue({
+    el:'#v-for-object',
+    data:{
+      object:{
+        firstName: 'John',
+        lastName: 'Doe',
+        age: 30
+      }
+    }
+  })
+new Vue({
+  el:'#ok',
+  data:{
+    numbers: [1,2,3,4,5]
+  },
+  computed:{
+    evenNumbers: function(){
+      return this.numbers.filter(function(number){
+        return number% 2===0
+      })
+    }
+  }
+  })
   </script>
 </body>
-
 </html>
